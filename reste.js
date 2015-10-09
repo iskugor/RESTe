@@ -183,12 +183,11 @@ var main = function() {
     reste.addMethod = function(args) {
         console.log(args.requestHeaders)
 
-        reste[args.name] = function(params, onLoad) {
+        reste[args.name] = function(params, onLoad, onError()) {
 
             var body,
                 method = "GET",
-                url,
-                onError;
+                url;
 
             if (args.post) method = "POST";
             if (args.get) method = "GET";
@@ -225,7 +224,7 @@ var main = function() {
                 }
             }
 
-            if (args.onError) {
+            if (!onError && args.onError) {
                 // change the callback to be the one specified
                 onError = function(e) {
                     args.onError(e, onLoad);
